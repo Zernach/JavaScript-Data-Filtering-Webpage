@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>UFO Finder Level-3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/style.css">
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script>
+  $(function() {
+    $( "#From_datepicker" ).datepicker();
+    $( "#To_datepicker" ).datepicker();
+    $( "#format" ).change(function() {
+      $( "#From_datepicker" ).datepicker( "option", "dateFormat", "mm dd yy" );
+      $( "#To_datepicker" ).datepicker( "option", "dateFormat", "mm dd yy" );
+
+    });
+  });
+  </script>
+
+
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.0/math.min.js"></script>
+
+ 
+
+
+
+
+</head>
+
+<body style="background-color: black;">
+  <div class="wrapper" >
+    <nav class="navbar navbar-default" style="background-color: black;">
+      <div class="container-fluid" >
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">UFO Sightings
+            <img class="nav-ufo" src="static/images/ufo.svg">
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div class="hero text-center">
+      <h1>UFO Sightings</h1>
+      <p>The Truth is Out There</p>
+      <p>Level-3</p>
+    </div>
+    <div class="container">
+      <div class="row margin-top-20">
+        <div class="col-md-12">
+              <div >
+                <form id="form">
+                  <div class="row" >
+
+                    <div class="col-md-4 form-group" >
+                    <small id="dateHelp" class="form-text text-muted">From:</small>                      
+                    <input class="form-control is-ivalied" type="text" name="datepicker" id="From_datepicker" min="01/01/2010" placeholder="1/1/2010" value="1/1/2010"/>
+                    </div>
+                    <div class="col-md-4 form-group" >
+                    <small id="dateHelp" class="form-text text-muted">To:</small>                      
+                    <input class="form-control" type="text" name="datepicker" id="To_datepicker" placeholder="1/13/2010" value="1/13/2010"/>
+                    </div>
+                    <div class="col-md-4 form-group" >
+                      <small id="dateHelp" class="form-text text-muted">Country:</small>                      
+                      <select onchange="updatingbyCountry()" id="inputCountry" class="form-control">
+                        <option selected>ALL</option>
+                      </select>                    </div>    
+                    
+                  </div>
+                  <div class="row" >
+                    <div class="col-md-3 form-group" >
+                    <small id="dateHelp" class="form-text text-muted">State:</small>                      
+                    <select onchange="updatingbystate()" id="inputState" class="form-control">
+                      <option >ALL</option>
+                    </select>                    </div>
+                    <div class="col-md-3 form-group" >
+                      <small id="dateHelp" class="form-text text-muted">City:</small>                      
+                      <select onchange="updatingbyCity()" id="inputCity" class="form-control">
+                        <option >ALL</option>
+                      </select>                    
+                      </div>
+            
+                    <div class="col-md-3 form-group" >
+                    <small id="dateHelp" class="form-text text-muted">Shape:</small>                      
+                    <select id="inputShape" class="form-control">
+                      <option selected>ALL</option>
+                    </select>                    </div>
+
+                    <div class="col-md-2" style="padding-top: 20px;">
+                    <button id="filter-btn" type="button" class="btn btn-secondary" >Filter Table</button>
+                    </div>
+                  <div>
+                </form>
+              </div>
+        </div>
+        <div class="col-md-12">
+          <div id="table-area" class="">
+            <table id="ufo-table" class="table table-hover table-dark">
+              <thead>
+                <tr>
+                  <th class="table-head">Date</th>
+                  <th class="table-head">City</th>
+                  <th class="table-head">State</th>
+                  <th class="table-head">Country</th>
+                  <th class="table-head">Shape</th>
+                  <th class="table-head">Duration</th>
+                  <th class="table-head">Comments</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer" style="background-color: black;">
+      <div class="container"></div>
+      <div class="row">
+        <div class="container col-md-3" >
+          <button id="level1" type="button" class="btn btn-secondary" onclick="location.href='../index.html'" style="padding: 5px 40%" >Home</button>
+      </div>
+          <div class="container col-md-3" >
+              <button id="level1" type="button" class="btn btn-secondary" onclick="location.href='../UFO-level-1/index.html'" style="padding: 5px 40%" >Level1</button>
+          </div>
+          <div class="container col-md-3">
+            <button id="level2" type="button" class="btn btn-secondary" onclick="location.href='../UFO-level-2/index.html'" style="padding: 5px 40%" >Level2</button>
+          </div>    
+          <div class="container col-md-3">
+            <button id="level3" type="button" class="btn btn-secondary" onclick="location.href='index.html'" style="padding: 5px 40%" >Level3</button>
+          </div>
+      
+      </div>
+      </div>
+
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+  <script src="static/js/data.js"></script>
+  <script src="static/js/app.js"></script>
+  <script src="static/js/filter.js"></script>
+
+</body>
+
+</html>
